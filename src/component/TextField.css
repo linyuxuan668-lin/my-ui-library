@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+:root {
+  --black-90: #3D3935;
+  --black-70: #707070;
+  --black-60: #999;
+  --black-40: #CACACA;
+  --black-30: #E5E5E5;
+  --black-20: #F9F9F9;
+  --white-100: #FFF;
+  --red-main: #F00;
+}
+
+.text-field {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.input-container {
+  position: relative;
+  width: 400px;
+}
+
+/* ==========================================
+   1. 基礎 Input / Select 樣式
+   ========================================== */
+.text-field input,
+.text-field select {
+  box-sizing: border-box;
+  display: flex;
+  width: 400px;
+  height: 40px;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  
+  color: var(--black-90);
+  outline: none;
+  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.text-field select {
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.text-field input::placeholder {
+  color: var(--black-60);
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* ==========================================
+   2. With Button 與 With Icon 特殊款式結構
+   ========================================== */
+.text-field--with-btn-type .input-container,
+.text-field--with-icon-type .input-container {
+  box-sizing: border-box;
+  display: flex;
+  width: 400px;
+  height: 40px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+/* With Button 的邊距 */
+.text-field--with-btn-type .input-container {
+  padding: 4px 4px 4px 16px;
+}
+
+/* With Icon 的邊距 */
+.text-field--with-icon-type .input-container {
+  padding: 0 16px;
+}
+
+/* 讓組合款內部的輸入框變透明、無邊框 */
+.text-field--with-btn-type input,
+.text-field--with-icon-type input {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 膠囊按鈕樣式 */
+.field-button {
+  display: flex;
+  padding: 16px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 100px;
+  background: var(--black-90);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--white-100);
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+}
+
+/* Icon 容器基礎樣式 */
+.field-icon-wrapper {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--black-90); /* 預設 Icon 顏色 */
+}
+
+/* ==========================================
+   3. 狀態控制對接
+   ========================================== */
+
+/* --- Default & Filled --- */
+.text-field--default input,
+.text-field--default select,
+.text-field--default.text-field--with-btn-type .input-container,
+.text-field--default.text-field--with-icon-type .input-container,
+.text-field--filled input,
+.text-field--filled select,
+.text-field--filled.text-field--with-btn-type .input-container,
+.text-field--filled.text-field--with-icon-type .input-container {
+  border: 1px solid var(--black-40);
+  background: var(--white-100);
+}
+
+/* --- Error --- */
+.text-field--error input,
+.text-field--error select,
+.text-field--error.text-field--with-btn-type .input-container,
+.text-field--error.text-field--with-icon-type .input-container {
+  border: 1px solid var(--red-main);
+  background: var(--white-100);
+}
+.text-field--error .field-icon-wrapper {
+  color: var(--red-main); /* 錯誤時 Icon 自動變紅 */
+}
+
+.error-message {
+  color: var(--red-main);
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  line-height: 140%;
+}
+
+/* --- Readonly --- */
+.text-field--readonly input,
+.text-field--readonly select,
+.text-field--readonly.text-field--with-btn-type .input-container,
+.text-field--readonly.text-field--with-icon-type .input-container {
+  border: none !important;
+  background: var(--black-30) !important;
+  color: var(--black-70);
+}
+.text-field--readonly .field-button {
+  background: var(--black-40);
+  color: var(--black-60);
+  cursor: not-allowed;
+}
+.text-field--readonly .field-icon-wrapper {
+  color: var(--black-70); /* Readonly 時 Icon 自動變灰 */
+}
+
+/* --- Disabled --- */
+.text-field--disabled input,
+.text-field--disabled select,
+.text-field--disabled.text-field--with-btn-type .input-container,
+.text-field--disabled.text-field--with-icon-type .input-container {
+  border: 1px solid var(--black-40) !important;
+  background: var(--black-20) !important;
+  color: var(--black-60);
+}
+.text-field--disabled .field-button {
+  background: var(--black-40);
+  color: var(--black-60);
+  cursor: not-allowed;
+}
+.text-field--disabled .field-icon-wrapper {
+  color: var(--black-60); /* Disabled 時 Icon 自動變淺灰 */
+}
